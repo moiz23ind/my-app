@@ -1,0 +1,14 @@
+---
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks: 
+          - name: ad list of users in my nodes
+            user: name='{{item}}' state=present
+            with_items:
+                    - ali
+                    - moiz
+                    - ashraf
+                    - imam
+                    - asif
