@@ -1,0 +1,29 @@
+--- # install mariadb via ansible
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  vars:
+    mysql_root_password: "passwd"
+  tasks:
+    - name: Install MYSQL
+      yum:
+        name:
+         - mariadb-server
+         - MySQL-python
+        state: latest
+    - name: start mariad
+      service:
+        name: mariadb
+        enabled: true
+        state: started
+    - name: set root password 
+      mysql_user:
+        check_implicit_admin: yes
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        user: root
+        password: "{{ mysql_root_password }}"
+        host: localhost
+        
+
